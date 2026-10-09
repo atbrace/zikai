@@ -13,9 +13,10 @@ permissions:
 jobs:
   feed:
     runs-on: ubuntu-latest
-    # one post per PR, exactly once: opened posts non-drafts; ready_for_review
-    # posts drafts at unlock. (opened+ready both fire on non-draft opens —
-    # first lap measured the double-post; GitHub does not suppress that pair.)
+    # one post per PR, exactly once: opened posts non-drafts only; drafts
+    # post at ready_for_review. (The first lap's double-post was MY OWN dead
+    # poller's 12:44 lap racing the Action — self-caused, not GitHub firing
+    # both events on a non-draft open. Attribution corrected at receipt.)
     if: github.event.action == 'ready_for_review' || (github.event.action == 'opened' && github.event.pull_request.draft == false)
     steps:
       - uses: actions/checkout@v4
